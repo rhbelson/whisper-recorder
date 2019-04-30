@@ -25,7 +25,7 @@ const Dictaphone = ({
 
   function doSomethingThenCall() {
     console.log("Calling endpoint");
-    fetch("http://hinckley.cs.northwestern.edu/~rbi054/whisper/update_answer.php",
+    return fetch("http://hinckley.cs.northwestern.edu/~rbi054/whisper/update_answer.php",
       {
   method: 'POST',
   headers: new Headers({
@@ -33,10 +33,10 @@ const Dictaphone = ({
     }),
   body: `param1=${transcript}` // <-- Post parameters
 })
-    .then(function (responseObject) {
-                    return responseObject
-                }).then(function (result){
-                    console.log(result.text());
+    .then(function (response) {
+                    return response
+                }).then(function (data){
+                    console.log(data.text());
                 }).catch(function (error) {
                     console.log('Request failed', error);
                 });

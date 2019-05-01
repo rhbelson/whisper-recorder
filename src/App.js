@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.png';
+import logo from './location.svg';
 import './App.css';
 // import Speech from 'speech';
 import SpeechRecognition from './SpeechRecognition';

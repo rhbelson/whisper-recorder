@@ -15,6 +15,7 @@ const propTypes = {
 };
 
 let options=false;
+let speech_answer="";
 
 const Dictaphone = ({
   transcript,
@@ -29,15 +30,27 @@ const Dictaphone = ({
     return getAnswer();
   }
 
-  function speak() {
-    if (options==true) {
+  function speak(text) {
+    console.log("Speak() Called! speaking mode is now"+options);
+    if (options==true && text!="") {
+      console.log("Time to speak answer!");
      return (<Say
           pitch={ 1.1 }
           rate={ 1.0 }
-          speak="This is your answer"
+          speak={speech_answer}
           volume={ .8 }
         />);
+    options=false;
     }
+    if (options==true && text=="") {
+      return (<Say
+          pitch={ 1.1 }
+          rate={ 1.0 }
+          speak="Sorry, I didn't catch that. Please ask again"
+          volume={ .8 }
+        />);
+      options=false;
+      }
   }
 
   function getAnswer() {
@@ -54,11 +67,11 @@ const Dictaphone = ({
                     return response.text()
                 }).then(function (data){
                     console.log(data);
+                    speech_answer=data;
                     options=true;
-                    speak();
-                    options=false;
                 }).catch(function (error) {
                     console.log('Request failed', error);
+                    speech_answer="";
                 });
 
   }

@@ -7,6 +7,7 @@
     "react": "^16.8.6",
     "react-awesome-button": "^6.1.0",
     "react-dom": "^16.8.6",
+    "react-say": "^1.1.1",
     "react-scripts": "3.0.0",
     "react-speech": "^0.3.2",
     "react-speech-recognition": "^2.0.1"

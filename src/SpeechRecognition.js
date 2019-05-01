@@ -34,9 +34,9 @@ const Dictaphone = ({
   body: `param1=${transcript}` // <-- Post parameters
 })
     .then(function (response) {
-                    return response
+                    return response.text()
                 }).then(function (data){
-                    console.log(data.text());
+                    console.log(data);
                 }).catch(function (error) {
                     console.log('Request failed', error);
                 });

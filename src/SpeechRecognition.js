@@ -4,7 +4,7 @@ import SpeechRecognition from "react-speech-recognition";
 import { AwesomeButton } from "react-awesome-button";
 // import AwesomeButtonProgress from 'react-awesome-button/src/components/AwesomeButtonProgress';
 import AwesomeButtonStyles from "react-awesome-button/src/styles/styles.scss";
-
+import Say from 'react-say';
 
 
 const propTypes = {
@@ -13,6 +13,8 @@ const propTypes = {
   resetTranscript: PropTypes.func,
   browserSupportsSpeechRecognition: PropTypes.bool
 };
+
+let options=false;
 
 const Dictaphone = ({
   transcript,
@@ -24,8 +26,23 @@ const Dictaphone = ({
   }
 
   function doSomethingThenCall() {
+    return getAnswer();
+  }
+
+  function speak() {
+    if (options==true) {
+     return (<Say
+          pitch={ 1.1 }
+          rate={ 1.0 }
+          speak="This is your answer"
+          volume={ .8 }
+        />);
+    }
+  }
+
+  function getAnswer() {
     console.log("Calling endpoint");
-    return fetch("http://hinckley.cs.northwestern.edu/~rbi054/whisper/update_answer.php",
+    fetch("http://hinckley.cs.northwestern.edu/~rbi054/whisper/update_answer.php",
       {
   method: 'POST',
   headers: new Headers({
@@ -37,9 +54,13 @@ const Dictaphone = ({
                     return response.text()
                 }).then(function (data){
                     console.log(data);
+                    options=true;
+                    speak();
+                    options=false;
                 }).catch(function (error) {
                     console.log('Request failed', error);
                 });
+
   }
 
   return (
@@ -57,6 +78,8 @@ const Dictaphone = ({
             type="secondary">
             <span onClick={resetTranscript}>Clear Question</span>
           </AwesomeButton> 
+          {speak()}
+          
     </div>
   );
 };
